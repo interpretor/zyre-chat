@@ -16,8 +16,10 @@ const rl = readline.createInterface({
 });
 
 function clearStdin() {
-  readline.clearLine(process.stdin, 0);
-  readline.cursorTo(process.stdin, 0);
+  if (process.platform !== 'win32') {
+    readline.clearLine(process.stdin, 0);
+    readline.cursorTo(process.stdin, 0);
+  }
 }
 
 class Chat {
@@ -78,10 +80,6 @@ class Chat {
             }
             break;
           }
-
-          case '/help':
-            console.log('Type "/list" to show all connected peers');
-            break;
 
           default:
             z1.shout('CHAT', input);

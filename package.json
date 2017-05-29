@@ -1,0 +1,41 @@
+{
+  "name": "zyre-chat",
+  "version": "0.1.1",
+  "description": "Simple chat based on zyre.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/interpretor/zyre-chat.git"
+  },
+  "keywords": [
+    "zyre",
+    "zre",
+    "zeromq",
+    "zmq",
+    "libzmq",
+    "p2p",
+    "peer",
+    "peer-to-peer",
+    "chat"
+  ],
+  "author": "Sebastian Rager <mail@interpretor.net>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/interpretor/zyre-chat/issues"
+  },
+  "homepage": "https://github.com/interpretor/zyre-chat#readme",
+  "dependencies": {
+    "zyre.js": "^0.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "mocha": "^3.4.2"
+  },
+  "engines": {
+    "node": ">=6.5.0"
+  }
+}

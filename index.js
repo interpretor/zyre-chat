@@ -25,6 +25,8 @@ function clearStdin() {
 class Chat {
   static start() {
     rl.question('Enter your name: ', (answer) => {
+      console.log('Type "/help" to get information about available commands');
+
       const z1 = zyre.new({ name: answer });
 
       z1.on('connect', (id, name) => {
@@ -61,29 +63,61 @@ class Chat {
         z1.join('CHAT');
       });
 
-      rl.on('SIGINT', () => {
+      function close() {
         z1.stop().then(() => {
           clearStdin();
           process.exit(0);
         });
-      });
+      }
+
+      rl.on('SIGINT', close);
 
       rl.prompt();
       rl.on('line', (input) => {
-        switch (input) {
+        const inputArr = input.split(' ');
+
+        switch (inputArr[0]) {
           case '/list': {
             const peers = z1.getPeers();
             for (const i in peers) {
               if ({}.hasOwnProperty.call(peers, i)) {
-                console.log(`- ${peers[i].name}`);
+                console.log(`${peers[i].name}`);
               }
             }
+
             break;
           }
+
+          case '/whisper': {
+            const peerName = inputArr[1];
+            const message = inputArr.slice(2).join(' ');
+            const peers = z1.getPeers();
+            for (const i in peers) {
+              if ({}.hasOwnProperty.call(peers, i)) {
+                if (peers[i].name === peerName) {
+                  z1.whisper(i, message);
+                }
+              }
+            }
+
+            break;
+          }
+
+          case '/exit':
+            close();
+            break;
+
+          case '/help':
+            console.log('Available commands:');
+            console.log('/list: List all connected clients');
+            console.log('/whisper <name> <message>: Send message to a specific client');
+            console.log('/exit: Leave chat');
+            break;
 
           default:
             z1.shout('CHAT', input);
         }
+
         rl.prompt();
       });
     });

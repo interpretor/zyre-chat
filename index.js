@@ -7,12 +7,13 @@
  */
 
 const readline = require('readline');
+const chalk = require('chalk');
 const zyre = require('zyre.js');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: '> ',
+  prompt: chalk.blue('> '),
 });
 
 function clearStdin() {
@@ -22,40 +23,58 @@ function clearStdin() {
   }
 }
 
+const chalkColors = {
+  0: 'red',
+  1: 'green',
+  2: 'yellow',
+  3: 'blue',
+  4: 'magenta',
+  5: 'cyan',
+};
+
+function colorString(str) {
+  return chalk[chalkColors[(str.length + str.charCodeAt(0)) % 6]](str);
+}
+
 class Chat {
   static start() {
     rl.question('Enter your name: ', (answer) => {
+      if (typeof answer !== 'string' || answer.length < 1) {
+        console.log('Invalid name!');
+        process.exit(0);
+      }
+
       console.log('Type "/help" to get information about available commands');
 
       const z1 = zyre.new({ name: answer });
 
       z1.on('connect', (id, name) => {
         clearStdin();
-        console.log(`${name} has joined the chat`);
+        console.log(chalk.dim(`${name} has joined the chat`));
         rl.prompt(true);
       });
 
       z1.on('disconnect', (id, name) => {
         clearStdin();
-        console.log(`${name} has left the chat`);
-        rl.prompt(true);
-      });
-
-      z1.on('evasive', (id, name) => {
-        clearStdin();
-        console.log(`${name} not responding`);
+        console.log(chalk.dim(`${name} has left the chat`));
         rl.prompt(true);
       });
 
       z1.on('expired', (id, name) => {
         clearStdin();
-        console.log(`${name} timed out`);
+        console.log(chalk.dim(`${name} timed out`));
         rl.prompt(true);
       });
 
-      z1.on('message', (id, name, message) => {
+      z1.on('whisper', (id, name, message) => {
         clearStdin();
-        console.log(`<${name}> ${message}`);
+        console.log(`[${colorString(name)}]: ${message}`);
+        rl.prompt(true);
+      });
+
+      z1.on('shout', (id, name, message) => {
+        clearStdin();
+        console.log(`${colorString(name)}: ${message}`);
         rl.prompt(true);
       });
 
@@ -81,7 +100,8 @@ class Chat {
             const peers = z1.getPeers();
             for (const i in peers) {
               if ({}.hasOwnProperty.call(peers, i)) {
-                console.log(`${peers[i].name}`);
+                const online = peers[i].evasive ? chalk.red('offline') : chalk.green('online');
+                console.log(`${peers[i].name} - ${online}`);
               }
             }
 
@@ -108,7 +128,6 @@ class Chat {
             break;
 
           case '/help':
-            console.log('Available commands:');
             console.log('/list: List all connected clients');
             console.log('/whisper <name> <message>: Send message to a specific client');
             console.log('/exit: Leave chat');

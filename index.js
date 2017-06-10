@@ -100,7 +100,7 @@ class Chat {
             const peers = z1.getPeers();
             for (const i in peers) {
               if ({}.hasOwnProperty.call(peers, i)) {
-                const online = peers[i].evasive ? chalk.red('offline') : chalk.green('online');
+                const online = peers[i].expired ? chalk.red('offline') : chalk.green('online');
                 console.log(`${peers[i].name} - ${online}`);
               }
             }
@@ -114,7 +114,7 @@ class Chat {
             const peers = z1.getPeers();
             for (const i in peers) {
               if ({}.hasOwnProperty.call(peers, i)) {
-                if (peers[i].name === peerName) {
+                if (peers[i].name.toLowerCase() === peerName.toLowerCase()) {
                   z1.whisper(i, message);
                 }
               }

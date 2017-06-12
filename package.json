@@ -26,7 +26,7 @@
   "homepage": "https://github.com/interpretor/zyre-chat#readme",
   "dependencies": {
     "chalk": "^1.1.3",
-    "zyre.js": "^0.1.6"
+    "zyre.js": "^0.1.7"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

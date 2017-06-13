@@ -1,6 +1,6 @@
 {
   "name": "zyre-chat",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "Simple chat based on zyre.js",
   "main": "index.js",
   "repository": {

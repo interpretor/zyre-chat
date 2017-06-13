@@ -5,13 +5,13 @@ Simple chat based on zyre.js
 ## Installation
 
 ```bash
-npm install zyre-chat
+npm install -g zyre-chat
 ```
 
 ## Usage
 
-```js
-const chat = require('zyre-chat');
+Start the CLI chat with the following command (arguments are optional):
 
-chat.start();
+```bash
+zyre-chat --name=Foo --iface=eth0
 ```

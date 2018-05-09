@@ -23,6 +23,11 @@ Options:
                                   reconnect not responding clients
   -E <value>, --expired=<value>   set the timeout value in ms at which remote
                                   clients will be disconnected and removed
+  -p <port>,  --port=<port>       set the TCP port for incoming messages, will
+                                  be incremented if already in use
+  -P <bport>, --bport=<bport>     set the UDP port of the broadcast beacon which
+                                  is responsible for client discovery and
+                                  heartbeating
   -b <value>, --binterval=<value> set the interval in ms of the UDP broadcast
                                   beacon which is responsible for client
                                   discovery and heartbeating`;
@@ -37,6 +42,8 @@ let iface;
 let greeting;
 let evasive;
 let expired;
+let port;
+let bport;
 let binterval;
 
 const userArgv = process.argv.slice(2);
@@ -91,6 +98,18 @@ userArgv.forEach((e, i) => {
       expired = +arg;
       break;
 
+    case 'p':
+    case 'port':
+      if (isNaN(+arg)) exit();
+      port = +arg;
+      break;
+
+    case 'P':
+    case 'bport':
+      if (isNaN(+arg)) exit();
+      bport = +arg;
+      break;
+
     case 'b':
     case 'binterval':
       if (isNaN(+arg)) exit();
@@ -104,4 +123,4 @@ userArgv.forEach((e, i) => {
 
 const chat = require('../lib/chat');
 
-chat.start({ name, iface, greeting, evasive, expired, binterval });
+chat.start({ name, iface, greeting, evasive, expired, port, bport, binterval });

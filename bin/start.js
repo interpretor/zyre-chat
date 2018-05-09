@@ -28,7 +28,7 @@ Options:
                                   discovery and heartbeating`;
 
 function exit() {
-  console.log(HELPTEXT);
+  process.stdout.write(`${HELPTEXT}\n`);
   process.exit(0);
 }
 
@@ -102,6 +102,6 @@ userArgv.forEach((e, i) => {
   }
 });
 
-const chat = require('../index');
+const chat = require('../lib/chat');
 
-chat.start(name, iface, greeting, evasive, expired, binterval);
+chat.start({ name, iface, greeting, evasive, expired, binterval });

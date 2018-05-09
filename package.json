@@ -25,8 +25,9 @@
   },
   "homepage": "https://github.com/interpretor/zyre-chat#readme",
   "dependencies": {
-    "chalk": "^2.1.0",
-    "zyre.js": "^1.1.1"
+    "chalk": "^2.4.1",
+    "keypress": "^0.2.1",
+    "zyre.js": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^4.4.1",

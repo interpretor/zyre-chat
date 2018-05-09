@@ -26,7 +26,7 @@
   "homepage": "https://github.com/interpretor/zyre-chat#readme",
   "dependencies": {
     "chalk": "^2.4.1",
-    "keypress": "^0.2.1",
+    "commander": "^2.15.1",
     "zyre.js": "^1.2.0"
   },
   "devDependencies": {

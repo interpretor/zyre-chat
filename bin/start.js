@@ -16,7 +16,7 @@ const version = require('../package.json').version;
 program
   .version(version, '-v, --version')
   .option('-n, --name <name>', 'set the name of the chat client')
-  .option('-i, --iface <iface>', 'set the network interface which the chat client should use')
+  .option('-i, --iface <iface>', 'set the network interface or IPv4 address which the chat client should use')
   .option('-g, --greeting <text>', 'set a greeting message that will be sent to every new connected client')
   .option('-e, --evasive <value>', 'set the timeout value in ms at which remote clients will be marked as not responsive and at which the chat client will force to reconnect not responding clients', parseInt)
   .option('-E, --expired <value>', 'set the timeout value in ms at which remote clients will be disconnected and removed', parseInt)
